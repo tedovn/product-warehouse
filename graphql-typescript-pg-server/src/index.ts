@@ -16,8 +16,8 @@ const app: Application = express();
 
 const config: Config = {
   schema: schema,
-  introspection: true, //these lines are required to use the gui
-  playground: true, //   of playground
+  introspection: true, // these lines are required to use the gui
+  playground: true, // of playground
   tracing: true,
   context: {
     loaders: {
