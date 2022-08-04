@@ -13,11 +13,17 @@ const default_config = {
     tableName: "knex_migrations",
     directory: "migrations",
   },
+  seeds: {
+    tableName: "knex_seeds",
+    directory: "seeds",
+  },
   timezone: "UTC",
 };
+
 interface KnexConfig {
   [key: string]: object;
 }
+
 const config: KnexConfig = {
   development: {
     ...default_config,

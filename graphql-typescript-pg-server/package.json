@@ -9,16 +9,17 @@
     "test:integration": "jest /src -c  jest.config.js --forceExit ",
     "start": "node /dist/bundle.js",
     "migrate:up": "knex --knexfile ./src/database/knexfile.ts migrate:latest ",
+    "migrate:down": "knex --knexfile ./src/database/knexfile.ts migrate:down",
+    "seed:run": "knex --knexfile ./src/database/knexfile.ts seed:run",
     "test:migrate:up": "knex --knexfile ./src/database/knexfile.ts migrate:latest --env testing",
     "test:migrate:down": "knex --knexfile ./src/database/knexfile.ts migrate:down --env testing",
     "generate:types": "graphql-codegen --config codegen.yml",
     "test:seed-db": "knex --knexfile ./src/database/knexfile.ts seed:run --env testing"
   },
   "dependencies": {
-
+    "apollo-datasource-rest": "^3.6.1",
     "apollo-server-express": "^2.16.1",
     "apollo-server-testing": "^2.16.1",
-
     "body-parser": "^1.19.0",
     "dataloader": "^2.0.0",
     "express": "^4.17.1",

@@ -36,6 +36,11 @@ export type Pet = {
   owner?: Maybe<User>;
 };
 
+export type Calculation = {
+  __typename?: 'Calculation';
+  result: Scalars['Int'];
+};
+
 export type CreateUserInput = {
   full_name: Scalars['String'];
   country_code: Scalars['String'];
@@ -56,6 +61,11 @@ export type UpdateUserInput = {
 export type UpdatePetInput = {
   id: Scalars['Int'];
   name: Scalars['String'];
+};
+
+export type SumNumbers = {
+  num1: Scalars['Int'];
+  num2: Scalars['Int'];
 };
 
 export type Query = {
@@ -84,6 +94,10 @@ export type Mutation = {
   deleteUser?: Maybe<Scalars['String']>;
   updatePet?: Maybe<Pet>;
   updateUser?: Maybe<User>;
+  sum?: Maybe<Calculation>;
+  subtract?: Maybe<Calculation>;
+  multiply?: Maybe<Calculation>;
+  divide?: Maybe<Calculation>;
 };
 
 
@@ -114,6 +128,30 @@ export type MutationUpdatePetArgs = {
 
 export type MutationUpdateUserArgs = {
   user: UpdateUserInput;
+};
+
+
+export type MutationSumArgs = {
+  num1: Scalars['Int'];
+  num2: Scalars['Int'];
+};
+
+
+export type MutationSubtractArgs = {
+  num1: Scalars['Int'];
+  num2: Scalars['Int'];
+};
+
+
+export type MutationMultiplyArgs = {
+  num1: Scalars['Int'];
+  num2: Scalars['Int'];
+};
+
+
+export type MutationDivideArgs = {
+  num1: Scalars['Int'];
+  num2: Scalars['Int'];
 };
 
 
@@ -195,10 +233,12 @@ export type ResolversTypes = {
   User: ResolverTypeWrapper<User>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Pet: ResolverTypeWrapper<Pet>;
+  Calculation: ResolverTypeWrapper<Calculation>;
   createUserInput: CreateUserInput;
   createPetInput: CreatePetInput;
   updateUserInput: UpdateUserInput;
   updatePetInput: UpdatePetInput;
+  sumNumbers: SumNumbers;
   Query: ResolverTypeWrapper<{}>;
   Mutation: ResolverTypeWrapper<{}>;
 };
@@ -211,10 +251,12 @@ export type ResolversParentTypes = {
   User: User;
   Int: Scalars['Int'];
   Pet: Pet;
+  Calculation: Calculation;
   createUserInput: CreateUserInput;
   createPetInput: CreatePetInput;
   updateUserInput: UpdateUserInput;
   updatePetInput: UpdatePetInput;
+  sumNumbers: SumNumbers;
   Query: {};
   Mutation: {};
 };
@@ -238,6 +280,11 @@ export type PetResolvers<ContextType = any, ParentType extends ResolversParentTy
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 };
 
+export type CalculationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Calculation'] = ResolversParentTypes['Calculation']> = {
+  result?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+};
+
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   pets?: Resolver<Maybe<Array<Maybe<ResolversTypes['Pet']>>>, ParentType, ContextType>;
   users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
@@ -252,11 +299,16 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   deleteUser?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'id'>>;
   updatePet?: Resolver<Maybe<ResolversTypes['Pet']>, ParentType, ContextType, RequireFields<MutationUpdatePetArgs, 'pet'>>;
   updateUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'user'>>;
+  sum?: Resolver<Maybe<ResolversTypes['Calculation']>, ParentType, ContextType, RequireFields<MutationSumArgs, 'num1' | 'num2'>>;
+  subtract?: Resolver<Maybe<ResolversTypes['Calculation']>, ParentType, ContextType, RequireFields<MutationSubtractArgs, 'num1' | 'num2'>>;
+  multiply?: Resolver<Maybe<ResolversTypes['Calculation']>, ParentType, ContextType, RequireFields<MutationMultiplyArgs, 'num1' | 'num2'>>;
+  divide?: Resolver<Maybe<ResolversTypes['Calculation']>, ParentType, ContextType, RequireFields<MutationDivideArgs, 'num1' | 'num2'>>;
 };
 
 export type Resolvers<ContextType = any> = {
   User?: UserResolvers<ContextType>;
   Pet?: PetResolvers<ContextType>;
+  Calculation?: CalculationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
 };

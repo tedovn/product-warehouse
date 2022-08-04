@@ -14,7 +14,6 @@ module.exports = {
   resolve: {
     extensions: [".mjs", '.js', '.ts', '.(graphql|gql)'],
     modules: [
-
       'src',
     ]
   },

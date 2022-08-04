@@ -1,62 +1,74 @@
-enum Species{
-    BIRDS,
-    FISH,
-    MAMMALS,
-    REPTILES
+enum Species {
+  BIRDS
+  FISH
+  MAMMALS
+  REPTILES
 }
 
 type User {
-    id: Int!
-    full_name: String
-    country_code: String
-    created_at:String
-    pets:[Pet]
+  id: Int!
+  full_name: String
+  country_code: String
+  created_at: String
+  pets: [Pet]
 }
 
 type Pet {
-    id: Int!
-    name: String
-    owner_id: Int!
-    specie: Species
-    created_at:String
-    owner:User
+  id: Int!
+  name: String
+  owner_id: Int!
+  specie: Species
+  created_at: String
+  owner: User
 }
 
-input createUserInput{
-    full_name: String!
-    country_code: String!
+type Calculation {
+  result: Float!
 }
 
-input createPetInput{
-    name: String!
-    owner_id: Int!
-    specie: Species!
+input createUserInput {
+  full_name: String!
+  country_code: String!
 }
 
-input updateUserInput{
-    id:Int!
-    full_name: String
-    country_code: String
+input createPetInput {
+  name: String!
+  owner_id: Int!
+  specie: Species!
 }
 
-
-input updatePetInput{
-    id:Int!
-    name: String!
+input updateUserInput {
+  id: Int!
+  full_name: String
+  country_code: String
 }
 
-type Query{
-    pets:[Pet]
-    users:[User]
-    user(id:Int!):User
-    pet(id:Int!):Pet
+input updatePetInput {
+  id: Int!
+  name: String!
 }
 
-type Mutation{
-    createPet(pet:createPetInput!):Pet
-    createUser(user:createUserInput!):User
-    deletePet(id:Int!):String
-    deleteUser(id:Int!):String
-    updatePet(pet:updatePetInput!):Pet
-    updateUser(user:updateUserInput!):User
+input sumNumbers {
+  num1: Int!
+  num2: Int!
+}
+
+type Query {
+  pets: [Pet]
+  users: [User]
+  user(id: Int!): User
+  pet(id: Int!): Pet
+}
+
+type Mutation {
+  createPet(pet: createPetInput!): Pet
+  createUser(user: createUserInput!): User
+  deletePet(id: Int!): String
+  deleteUser(id: Int!): String
+  updatePet(pet: updatePetInput!): Pet
+  updateUser(user: updateUserInput!): User
+  sum(num1: Int!, num2: Int!): Calculation
+  subtract(num1: Int!, num2: Int!): Calculation
+  multiply(num1: Int!, num2: Int!): Calculation
+  divide(num1: Int!, num2: Int!): Calculation
 }
