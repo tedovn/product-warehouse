@@ -44,20 +44,6 @@ class CalculationAPI extends RESTDataSource {
       num2
     });
   }
-
-  // async getMovie(id) {
-  //   // Send a GET request to the specified endpoint
-  //   return this.get(`movies/${encodeURIComponent(id)}`);
-  // }
-
-  // async getMostViewedMovies(limit = 10) {
-  //   const data = await this.get('movies', {
-  //     // Query parameters
-  //     per_page: limit,
-  //     order_by: 'most_viewed',
-  //   });
-  //   return data.results;
-  // }
 }
 
 export default CalculationAPI;

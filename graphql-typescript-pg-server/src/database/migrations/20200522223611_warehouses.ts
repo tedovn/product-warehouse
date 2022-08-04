@@ -4,8 +4,8 @@ export async function up(knex: Knex): Promise<any> {
   return await knex.schema
     .createTable("warehouses", (table: Knex.CreateTableBuilder) => {
       table.increments().primary();
-      table.string("name").notNullable();
-      table.string("capacity").notNullable();
+      table.string("name").notNullable().unique();
+      table.integer("capacity").notNullable();
       table.timestamps(true, true);
     });
 }

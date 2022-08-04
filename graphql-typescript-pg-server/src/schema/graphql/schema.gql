@@ -1,74 +1,80 @@
-enum Species {
-  BIRDS
-  FISH
-  MAMMALS
-  REPTILES
-}
-
-type User {
-  id: Int!
-  full_name: String
-  country_code: String
-  created_at: String
-  pets: [Pet]
-}
-
-type Pet {
-  id: Int!
-  name: String
-  owner_id: Int!
-  specie: Species
-  created_at: String
-  owner: User
-}
-
 type Calculation {
   result: Float!
 }
 
-input createUserInput {
-  full_name: String!
-  country_code: String!
-}
-
-input createPetInput {
+type Customer {
+  id: Int
+  customer_number: String!
   name: String!
-  owner_id: Int!
-  specie: Species!
+  city: String
+  state: String
+  created_at: String
 }
 
-input updateUserInput {
-  id: Int!
-  full_name: String
-  country_code: String
+enum ProductType {
+  HAZARDOUS
+  NONHAZARDOUS
 }
 
-input updatePetInput {
-  id: Int!
+type Product {
+  id: Int
   name: String!
+  description: String
+  type: String!
+  created_at: String
 }
 
-input sumNumbers {
-  num1: Int!
-  num2: Int!
+input createProductInput {
+  name: String!
+  description: String
+  type: ProductType
+}
+
+input createWarehouseInput {
+  name: String!
+  capacity: Int!
+}
+
+type Warehouse {
+  id: Int
+  name: String!
+  capacity: Int!
+  created_at: String
+}
+
+enum WarehouseHistoryType {
+  IMPORT
+  EXPORT
+}
+
+type WarehouseHistory {
+  id: Int
+  warehouse_id: Int!
+  product_id: Int!
+  product_name: String!
+  product_description: String!
+  product_quantity: Int!
+  customer_id: Int!
+  type: WarehouseHistoryType
+  created_at: String
 }
 
 type Query {
-  pets: [Pet]
-  users: [User]
-  user(id: Int!): User
-  pet(id: Int!): Pet
+  customers: [Customer]
+  products: [Product]
+  warehouses: [Warehouse]
+  warehousesHistory: [WarehouseHistory]
+  customer(id: Int!): Customer
+  product(id: Int!): Product
+  warehouse(id: Int!): Warehouse
+  warehouseHistory(id: Int!): [WarehouseHistory]
 }
 
 type Mutation {
-  createPet(pet: createPetInput!): Pet
-  createUser(user: createUserInput!): User
-  deletePet(id: Int!): String
-  deleteUser(id: Int!): String
-  updatePet(pet: updatePetInput!): Pet
-  updateUser(user: updateUserInput!): User
   sum(num1: Int!, num2: Int!): Calculation
   subtract(num1: Int!, num2: Int!): Calculation
   multiply(num1: Int!, num2: Int!): Calculation
   divide(num1: Int!, num2: Int!): Calculation
+  createProduct(product: createProductInput!): Product
+  createWarehouse(warehouse: createWarehouseInput!): Warehouse
 }

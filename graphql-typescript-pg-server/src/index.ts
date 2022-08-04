@@ -21,12 +21,12 @@ const config: Config = {
   dataSources: () => ({
     calculationAPI: new CalculationAPI()
   }),
-  context: {
-    loaders: {
-      users: new DataLoader(Users),
-      pets: new DataLoader(Pets),
-    },
-  },
+  // context: {
+  // loaders: {
+  // users: new DataLoader(Users),
+  // pets: new DataLoader(Pets),
+  // },
+  // },
   formatError: (error) => {
     return new ApolloError(error.message, error.extensions?.code, error.extensions);
   }
