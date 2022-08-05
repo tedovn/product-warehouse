@@ -5,9 +5,8 @@ import Knex from "knex";
 import { Model } from "objection";
 import dbconfig from "./database/config";
 const db = Knex(dbconfig["development"]);
-import DataLoader from "dataloader";
-import { Pets, Users } from "./utils/loaders";
 import { CalculationAPI } from "./schema/dataSources";
+import { errorHandler } from "./utils/errorHandler";
 
 Model.knex(db);
 
@@ -21,15 +20,7 @@ const config: Config = {
   dataSources: () => ({
     calculationAPI: new CalculationAPI()
   }),
-  // context: {
-  // loaders: {
-  // users: new DataLoader(Users),
-  // pets: new DataLoader(Pets),
-  // },
-  // },
-  formatError: (error) => {
-    return new ApolloError(error.message, error.extensions?.code, error.extensions);
-  }
+  formatError: (error) => errorHandler(error)
 };
 
 const server: ApolloServer = new ApolloServer(config);
