@@ -1,9 +1,5 @@
 import { Model } from 'objection';
-
-export enum ProductType {
-  HAZARDOUS = 'hazardous',
-  "NONHAZARDOUS" = 'non-hazardous'
-}
+import { ProductType } from '../../__generated__/generated-types';
 
 class Product extends Model {
   static tableName = "products";

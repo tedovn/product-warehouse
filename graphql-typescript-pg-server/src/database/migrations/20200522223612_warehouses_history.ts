@@ -6,8 +6,8 @@ export async function up(knex: Knex): Promise<any> {
       table.increments().primary();
       table.integer("warehouse_id").notNullable();
       table.integer("product_id").notNullable();
-      table.integer("product_name").notNullable();
-      table.integer("product_description").notNullable();
+      table.string("product_name").notNullable();
+      table.string("product_description").notNullable();
       table.integer("product_quantity").notNullable();
       table.integer("customer_id").notNullable();
       table.enum("type", ['import', 'export']).notNullable();

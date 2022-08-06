@@ -1,5 +1,4 @@
 import { Product } from "../../database/models";
-import { ProductType } from "../../database/models/Product";
 import { Resolvers } from "../../__generated__/generated-types";
 
 const resolvers: Resolvers = {
@@ -14,8 +13,12 @@ const resolvers: Resolvers = {
   Mutation: {
     createProduct: async (parent, args, ctx) => {
       // @ts-ignore
-      return await Product.query().insert({ ...args.product, type: ProductType[args.product.type] });
+      return await Product.query().insert({ ...args.product });
     },
+    deleteProduct: async (parent, args, ctx) => {
+      await Product.query().deleteById(args.id);
+      return "Successfully deleted";
+    }
   }
 };
 

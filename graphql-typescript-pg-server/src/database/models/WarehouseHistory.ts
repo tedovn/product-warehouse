@@ -1,12 +1,8 @@
 import { Model } from 'objection';
-
-export enum WarehouseHistoryType {
-  IMPORT = 'import',
-  EXPORT = 'export'
-}
+import { WarehouseHistoryType } from '../../__generated__/generated-types';
 
 class WarehouseHistory extends Model {
-  static tableName = "customers";
+  static tableName = "warehouses_history";
 
   id!: number;
   warehouse_id!: number;
@@ -16,6 +12,7 @@ class WarehouseHistory extends Model {
   product_quantity!: number;
   customer_id!: number;
   type!: WarehouseHistoryType;
+  sum?: number;
   created_at?: string;
   updated_at?: string;
 
@@ -32,6 +29,7 @@ class WarehouseHistory extends Model {
       product_quantity: { type: 'integer' },
       customer_id: { type: 'integer' },
       type: { type: 'string' },
+      sum: { type: 'integer' },
       created_at: { type: 'string', min: 1, max: 255 },
       updated_at: { type: 'string', min: 1, max: 255 }
     }

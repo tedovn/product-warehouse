@@ -26,8 +26,8 @@ export type Customer = {
 };
 
 export enum ProductType {
-  Hazardous = 'HAZARDOUS',
-  Nonhazardous = 'NONHAZARDOUS'
+  Hazardous = 'hazardous',
+  Nonhazardous = 'nonhazardous'
 }
 
 export type Product = {
@@ -35,7 +35,7 @@ export type Product = {
   id?: Maybe<Scalars['Int']>;
   name: Scalars['String'];
   description?: Maybe<Scalars['String']>;
-  type: Scalars['String'];
+  type: ProductType;
   created_at?: Maybe<Scalars['String']>;
 };
 
@@ -50,17 +50,31 @@ export type CreateWarehouseInput = {
   capacity: Scalars['Int'];
 };
 
+export type SumProductWarehouseHistory = {
+  __typename?: 'SumProductWarehouseHistory';
+  product_name: Scalars['String'];
+  sum?: Maybe<Scalars['Int']>;
+};
+
 export type Warehouse = {
   __typename?: 'Warehouse';
   id?: Maybe<Scalars['Int']>;
   name: Scalars['String'];
   capacity: Scalars['Int'];
+  products?: Maybe<Array<Maybe<SumProductWarehouseHistory>>>;
   created_at?: Maybe<Scalars['String']>;
 };
 
+export type CreateWarehouseHistoryInput = {
+  warehouse_id: Scalars['Int'];
+  product_id: Scalars['Int'];
+  customer_id: Scalars['Int'];
+  quantity: Scalars['Int'];
+};
+
 export enum WarehouseHistoryType {
-  Import = 'IMPORT',
-  Export = 'EXPORT'
+  Import = 'import',
+  Export = 'export'
 }
 
 export type WarehouseHistory = {
@@ -72,7 +86,7 @@ export type WarehouseHistory = {
   product_description: Scalars['String'];
   product_quantity: Scalars['Int'];
   customer_id: Scalars['Int'];
-  type?: Maybe<WarehouseHistoryType>;
+  type: WarehouseHistoryType;
   created_at?: Maybe<Scalars['String']>;
 };
 
@@ -81,7 +95,6 @@ export type Query = {
   customers?: Maybe<Array<Maybe<Customer>>>;
   products?: Maybe<Array<Maybe<Product>>>;
   warehouses?: Maybe<Array<Maybe<Warehouse>>>;
-  warehousesHistory?: Maybe<Array<Maybe<WarehouseHistory>>>;
   customer?: Maybe<Customer>;
   product?: Maybe<Product>;
   warehouse?: Maybe<Warehouse>;
@@ -115,7 +128,12 @@ export type Mutation = {
   multiply?: Maybe<Calculation>;
   divide?: Maybe<Calculation>;
   createProduct?: Maybe<Product>;
+  deleteProduct?: Maybe<Scalars['String']>;
   createWarehouse?: Maybe<Warehouse>;
+  updateWarehouse?: Maybe<Warehouse>;
+  deleteWarehouse?: Maybe<Scalars['String']>;
+  import?: Maybe<Scalars['Int']>;
+  export?: Maybe<Scalars['Int']>;
 };
 
 
@@ -148,8 +166,34 @@ export type MutationCreateProductArgs = {
 };
 
 
+export type MutationDeleteProductArgs = {
+  id: Scalars['Int'];
+};
+
+
 export type MutationCreateWarehouseArgs = {
   warehouse: CreateWarehouseInput;
+};
+
+
+export type MutationUpdateWarehouseArgs = {
+  warehouse: CreateWarehouseInput;
+};
+
+
+export type MutationDeleteWarehouseArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type MutationImportArgs = {
+  warehouseHistory: CreateWarehouseHistoryInput;
+};
+
+
+export type MutationExportArgs = {
+  id: Scalars['Int'];
+  quantity: Scalars['Int'];
 };
 
 
@@ -234,7 +278,9 @@ export type ResolversTypes = {
   Product: ResolverTypeWrapper<Product>;
   createProductInput: CreateProductInput;
   createWarehouseInput: CreateWarehouseInput;
+  SumProductWarehouseHistory: ResolverTypeWrapper<SumProductWarehouseHistory>;
   Warehouse: ResolverTypeWrapper<Warehouse>;
+  createWarehouseHistoryInput: CreateWarehouseHistoryInput;
   WarehouseHistoryType: WarehouseHistoryType;
   WarehouseHistory: ResolverTypeWrapper<WarehouseHistory>;
   Query: ResolverTypeWrapper<{}>;
@@ -253,7 +299,9 @@ export type ResolversParentTypes = {
   Product: Product;
   createProductInput: CreateProductInput;
   createWarehouseInput: CreateWarehouseInput;
+  SumProductWarehouseHistory: SumProductWarehouseHistory;
   Warehouse: Warehouse;
+  createWarehouseHistoryInput: CreateWarehouseHistoryInput;
   WarehouseHistoryType: WarehouseHistoryType;
   WarehouseHistory: WarehouseHistory;
   Query: {};
@@ -280,8 +328,14 @@ export type ProductResolvers<ContextType = any, ParentType extends ResolversPare
   id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['ProductType'], ParentType, ContextType>;
   created_at?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+};
+
+export type SumProductWarehouseHistoryResolvers<ContextType = any, ParentType extends ResolversParentTypes['SumProductWarehouseHistory'] = ResolversParentTypes['SumProductWarehouseHistory']> = {
+  product_name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  sum?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 };
 
@@ -289,6 +343,7 @@ export type WarehouseResolvers<ContextType = any, ParentType extends ResolversPa
   id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   capacity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  products?: Resolver<Maybe<Array<Maybe<ResolversTypes['SumProductWarehouseHistory']>>>, ParentType, ContextType>;
   created_at?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 };
@@ -301,7 +356,7 @@ export type WarehouseHistoryResolvers<ContextType = any, ParentType extends Reso
   product_description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   product_quantity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   customer_id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['WarehouseHistoryType']>, ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['WarehouseHistoryType'], ParentType, ContextType>;
   created_at?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 };
@@ -310,7 +365,6 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   customers?: Resolver<Maybe<Array<Maybe<ResolversTypes['Customer']>>>, ParentType, ContextType>;
   products?: Resolver<Maybe<Array<Maybe<ResolversTypes['Product']>>>, ParentType, ContextType>;
   warehouses?: Resolver<Maybe<Array<Maybe<ResolversTypes['Warehouse']>>>, ParentType, ContextType>;
-  warehousesHistory?: Resolver<Maybe<Array<Maybe<ResolversTypes['WarehouseHistory']>>>, ParentType, ContextType>;
   customer?: Resolver<Maybe<ResolversTypes['Customer']>, ParentType, ContextType, RequireFields<QueryCustomerArgs, 'id'>>;
   product?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryProductArgs, 'id'>>;
   warehouse?: Resolver<Maybe<ResolversTypes['Warehouse']>, ParentType, ContextType, RequireFields<QueryWarehouseArgs, 'id'>>;
@@ -323,13 +377,19 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   multiply?: Resolver<Maybe<ResolversTypes['Calculation']>, ParentType, ContextType, RequireFields<MutationMultiplyArgs, 'num1' | 'num2'>>;
   divide?: Resolver<Maybe<ResolversTypes['Calculation']>, ParentType, ContextType, RequireFields<MutationDivideArgs, 'num1' | 'num2'>>;
   createProduct?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<MutationCreateProductArgs, 'product'>>;
+  deleteProduct?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteProductArgs, 'id'>>;
   createWarehouse?: Resolver<Maybe<ResolversTypes['Warehouse']>, ParentType, ContextType, RequireFields<MutationCreateWarehouseArgs, 'warehouse'>>;
+  updateWarehouse?: Resolver<Maybe<ResolversTypes['Warehouse']>, ParentType, ContextType, RequireFields<MutationUpdateWarehouseArgs, 'warehouse'>>;
+  deleteWarehouse?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteWarehouseArgs, 'id'>>;
+  import?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType, RequireFields<MutationImportArgs, 'warehouseHistory'>>;
+  export?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType, RequireFields<MutationExportArgs, 'id' | 'quantity'>>;
 };
 
 export type Resolvers<ContextType = any> = {
   Calculation?: CalculationResolvers<ContextType>;
   Customer?: CustomerResolvers<ContextType>;
   Product?: ProductResolvers<ContextType>;
+  SumProductWarehouseHistory?: SumProductWarehouseHistoryResolvers<ContextType>;
   Warehouse?: WarehouseResolvers<ContextType>;
   WarehouseHistory?: WarehouseHistoryResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

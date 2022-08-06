@@ -12,15 +12,15 @@ type Customer {
 }
 
 enum ProductType {
-  HAZARDOUS
-  NONHAZARDOUS
+  hazardous
+  nonhazardous
 }
 
 type Product {
   id: Int
   name: String!
   description: String
-  type: String!
+  type: ProductType!
   created_at: String
 }
 
@@ -35,16 +35,29 @@ input createWarehouseInput {
   capacity: Int!
 }
 
+type SumProductWarehouseHistory {
+  product_name: String!
+  sum: Int
+}
+
 type Warehouse {
   id: Int
   name: String!
   capacity: Int!
+  products: [SumProductWarehouseHistory]
   created_at: String
 }
 
+input createWarehouseHistoryInput {
+  warehouse_id: Int!
+  product_id: Int!
+  customer_id: Int!
+  quantity: Int!
+}
+
 enum WarehouseHistoryType {
-  IMPORT
-  EXPORT
+  import
+  export
 }
 
 type WarehouseHistory {
@@ -55,7 +68,7 @@ type WarehouseHistory {
   product_description: String!
   product_quantity: Int!
   customer_id: Int!
-  type: WarehouseHistoryType
+  type: WarehouseHistoryType!
   created_at: String
 }
 
@@ -63,7 +76,6 @@ type Query {
   customers: [Customer]
   products: [Product]
   warehouses: [Warehouse]
-  warehousesHistory: [WarehouseHistory]
   customer(id: Int!): Customer
   product(id: Int!): Product
   warehouse(id: Int!): Warehouse
@@ -76,5 +88,10 @@ type Mutation {
   multiply(num1: Int!, num2: Int!): Calculation
   divide(num1: Int!, num2: Int!): Calculation
   createProduct(product: createProductInput!): Product
+  deleteProduct(id: Int!): String
   createWarehouse(warehouse: createWarehouseInput!): Warehouse
+  updateWarehouse(warehouse: createWarehouseInput!): Warehouse
+  deleteWarehouse(id: Int!): String
+  import(warehouseHistory: createWarehouseHistoryInput!): Int
+  export(id: Int!, quantity: Int!): Int
 }
