@@ -1,0 +1,98 @@
+@import "primereact/resources/themes/vela-blue/theme.css";  //theme
+@import "primereact/resources/primereact.min.css";                  //core css
+@import "primeicons/primeicons.css"; 
+
+@import 'react-toastify/dist/ReactToastify.min.css';
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  margin: 0;
+}
+
+a {
+  text-decoration: inherit;
+}
+
+.loader {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgb(255 255 255 / 30%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// toast overrides
+$types: 'success', 'error', 'info', 'warning';
+
+.Toastify__toast-container {
+  padding: 0;
+  font-family: 'Roboto';
+}
+
+.Toastify__toast {
+  box-shadow: none;
+  padding: 1.6rem;
+}
+
+.Toastify__toast-body {
+  align-items: flex-start;
+  padding: 0;
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  letter-spacing: 0.01em;
+
+  > div:last-child {
+    color: var(--koda-headline-label-color);
+  }
+
+  .headline {
+    display: block;
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+    margin-bottom: 0.8rem;
+    color: var(--koda-headline-label-color);
+  }
+}
+
+.Toastify__toast-theme--colored {
+  border-radius: 5px;
+
+  @each $type in $types {
+    &.Toastify__toast--#{$type} {
+      border: 1px solid var(--toastify-color-progress-#{$type});
+
+      .Toastify__close-button {
+        opacity: 1;
+
+        > svg {
+          path {
+            fill: var(--toastify-color-secondary-#{$type});
+          }
+        }
+      }
+    }
+  }
+}
+
+.Toastify__progress-bar-theme--colored {
+  @each $type in $types {
+    &.Toastify__progress-bar--#{$type} {
+      background: var(--toastify-color-progress-#{$type});
+    }
+  }
+}

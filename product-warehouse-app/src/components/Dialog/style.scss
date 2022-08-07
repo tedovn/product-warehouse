@@ -1,0 +1,40 @@
+.dialog {
+  .p-dialog {
+    .p-dialog-footer {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .p-dialog-header {
+      display: flex;
+      padding: 10px 4rem;
+
+      .p-dialog-title {
+        font-size: var(--koda-font-xl);
+      }
+    }
+
+    .confirmation-content {
+      display: flex;
+
+      .pi {
+        padding-right: 1rem;
+      }
+    }
+
+    .p-dialog-content {
+      padding: 14px 4rem;
+      font-size: 1.4rem;
+    }
+  }
+
+  .koda-Button {
+    display: flex;
+    justify-content: flex-end;
+
+    .primary-button {
+      width: 13.5rem;
+      float: right;
+    }
+  }
+}

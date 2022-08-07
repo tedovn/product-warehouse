@@ -13,6 +13,9 @@ const resolvers: Resolvers = {
     },
     divide: async (parent, args, { dataSources }) => {
       return await dataSources.calculationAPI.divide({ ...args })
+    },
+    sumArray: async (parent, args, { dataSources }) => {
+      return await dataSources.calculationAPI.sumArray({ ...args })
     }
   },
 };

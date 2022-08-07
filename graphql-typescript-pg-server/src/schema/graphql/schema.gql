@@ -33,6 +33,7 @@ input createProductInput {
 input createWarehouseInput {
   name: String!
   capacity: Int!
+  type: WarehouseType!
 }
 
 type SumProductWarehouseHistory {
@@ -40,10 +41,17 @@ type SumProductWarehouseHistory {
   sum: Int
 }
 
+enum WarehouseType {
+  hazardous
+  nonhazardous
+}
+
 type Warehouse {
   id: Int
   name: String!
   capacity: Int!
+  availableCapacity: Int
+  type: WarehouseType!
   products: [SumProductWarehouseHistory]
   created_at: String
 }
@@ -87,6 +95,7 @@ type Mutation {
   subtract(num1: Int!, num2: Int!): Calculation
   multiply(num1: Int!, num2: Int!): Calculation
   divide(num1: Int!, num2: Int!): Calculation
+  sumArray(digits: [Int]): Calculation
   createProduct(product: createProductInput!): Product
   deleteProduct(id: Int!): String
   createWarehouse(warehouse: createWarehouseInput!): Warehouse

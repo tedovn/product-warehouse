@@ -6,6 +6,7 @@ export async function up(knex: Knex): Promise<any> {
       table.increments().primary();
       table.string("name").notNullable().unique();
       table.integer("capacity").notNullable();
+      table.enum("type", ['hazardous', 'nonhazardous']).notNullable();
       table.timestamps(true, true);
     });
 }

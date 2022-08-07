@@ -1,0 +1,67 @@
+.koda-LabelErrorWrapper {
+  display: flex;
+  margin-bottom: 3rem;
+
+  &.horizontalView {
+    flex-direction: 'row';
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &.verticalView {
+    flex-direction: column;
+  }
+
+  .label-wrapper {
+    display: flex;
+    align-items: center;
+    padding-bottom: 0.8rem;
+
+    &.horizontalView {
+      align-self: flex-start;
+      padding-top: 1rem;
+      margin-right: 10px;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      font-size: 1.6rem;
+    }
+
+    .required-mark {
+      color: var(--koda-input-error);
+    }
+
+    i {
+      margin-left: 1rem;
+
+      &::before {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .p-invalid {
+    border: 1px solid var(--koda-input-error) !important;
+  }
+
+  small.p-error {
+    // height: 2rem;
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 600;
+    padding: 0rem 0rem 0.6125rem 0rem;
+  }
+}
+
+.hasError {
+  margin-bottom: 1rem;
+}
+
+.koda-LabelErrorWrapper-tooltip {
+  max-width: 100%;
+  width: 200px;
+  height: auto;
+  margin: -1rem 0;
+}

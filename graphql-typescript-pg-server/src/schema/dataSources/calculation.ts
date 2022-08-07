@@ -44,6 +44,13 @@ class CalculationAPI extends RESTDataSource {
       num2
     });
   }
+
+  async sumArray(props: { digits: number[] }) {
+    const { digits } = props;
+    return await this.post(`/sumArray`, {
+      digits,
+    });
+  }
 }
 
 export default CalculationAPI;

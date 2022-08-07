@@ -6,7 +6,7 @@ const resolvers: Resolvers = {
     warehouses: async (parent, args, ctx) => {
       return await Warehouse.query();
     },
-    warehouse: async (parent, args, ctx) => {
+    warehouse: async (parent, args, { dataSources }) => {
       const warehouse = await Warehouse.query().findById(args.id);
 
       const products: SumProductWarehouseHistory[] = await WarehouseHistory.query()
@@ -16,9 +16,12 @@ const resolvers: Resolvers = {
         .groupBy('product_name')
         .havingRaw('SUM(product_quantity) > ?', [0])
 
+      const { result } = await dataSources.calculationAPI.sumArray({ digits: products.map(p => Number(p.sum)) })
+
       return {
         ...warehouse,
-        products
+        products,
+        availableCapacity: warehouse.capacity - result
       }
     },
   },

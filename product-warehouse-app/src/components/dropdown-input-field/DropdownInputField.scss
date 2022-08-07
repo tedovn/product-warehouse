@@ -1,0 +1,27 @@
+.DropdownInputField {
+  .p-dropdown {
+    width: 28rem;
+    height: 4rem;
+    background: #f9f9fa;
+    border: none;
+    padding-left: 0.5rem;
+
+    .p-dropdown-trigger {
+      width: 4rem;
+    }
+
+    .p-dropdown-label {
+      align-self: center;
+    }
+  }
+
+  .custom-input-for-dropdown {
+    width: 28rem;
+    position: absolute;
+
+    .p-inputtext.p-component.other-input {
+      height: 2.5rem;
+      margin-top: 0.5rem;
+    }
+  }
+}
