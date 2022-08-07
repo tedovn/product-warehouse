@@ -1,21 +1,77 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Button } from "primereact/button";
-import { DataTable } from "primereact/datatable";
-import { TabView, TabPanel } from "primereact/tabview";
+import { DataTable, DataTableProps } from "primereact/datatable";
+import { TabView, TabPanel, TabPanelProps } from "primereact/tabview";
 
 import useWarehouse from "../../../../hooks/useWarehouse";
-import { Column } from "primereact/column";
-import { SumProductWarehouseHistory } from "../../../../models/Warehouse";
+import { Column, ColumnProps } from "primereact/column";
 
 interface ComponentProps {
   recordClicked: number;
 }
+
+interface CustomTabPanelProps extends TabPanelProps {
+  table: DataTableProps;
+  columns: ColumnProps[];
+}
+
+const productsColumns: ColumnProps[] = [
+  {
+    field: "product_name",
+    header: "Name",
+  },
+  {
+    field: "sum",
+    header: "Quantity",
+  },
+];
+
+const historyColumns: ColumnProps[] = [
+  {
+    field: "product_name",
+    header: "Name",
+  },
+  {
+    field: "product_description",
+    header: "Description",
+  },
+  {
+    field: "product_quantity",
+    header: "Quantity",
+  },
+  {
+    field: "type",
+    header: "Type",
+  },
+];
 
 const Main = (props: ComponentProps): JSX.Element => {
   const { recordClicked } = props;
   const [activeIndex, setActiveIndex] = useState(0);
 
   const { warehouse, warehouseHistory } = useWarehouse(recordClicked);
+  const tabPanels: CustomTabPanelProps[] = [
+    {
+      header: "Warehouse Products",
+      table: {
+        value: warehouse.products,
+        scrollable: true,
+        paginator: true,
+        rows: 10,
+      },
+      columns: productsColumns,
+    },
+    {
+      header: "History",
+      table: {
+        value: warehouseHistory,
+        scrollable: true,
+        paginator: true,
+        rows: 10,
+      },
+      columns: historyColumns,
+    },
+  ];
 
   return (
     <div className="Main">
@@ -34,30 +90,15 @@ const Main = (props: ComponentProps): JSX.Element => {
             activeIndex={activeIndex}
             onTabChange={(e: any) => setActiveIndex(e.index)}
           >
-            <TabPanel header="Warehouse Products">
-              <DataTable
-                value={warehouse.products}
-                scrollable
-                paginator
-                rows={10}
-              >
-                <Column field="product_name" header="Name" />
-                <Column field="sum" header="Quantity" />
-              </DataTable>
-            </TabPanel>
-            <TabPanel header="History">
-              <DataTable
-                value={warehouseHistory}
-                scrollable
-                paginator
-                rows={10}
-              >
-                <Column field="product_name" header="Name" />
-                <Column field="product_description" header="Description" />
-                <Column field="product_quantity" header="Quantity" />
-                <Column field="type" header="Type" />
-              </DataTable>
-            </TabPanel>
+            {tabPanels.map((tab) => (
+              <TabPanel header={tab.header}>
+                <DataTable {...tab.table}>
+                  {tab.columns.map((column) => (
+                    <Column {...column} />
+                  ))}
+                </DataTable>
+              </TabPanel>
+            ))}
           </TabView>
         </div>
       </div>
