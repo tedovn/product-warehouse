@@ -12,6 +12,9 @@
 - Install postgres or connect to existing one
 - Create database in postgres
 - Run yarn install for each project
+- Run yarn migrate:up for creating database tables
+- Run yarn seed:run for seeding the database
+- Run yarn generate:types for generate graphql types
 - Run projects with pm2 or separately
 
 ## [PM2 Commands]
