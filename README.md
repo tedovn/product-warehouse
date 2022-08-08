@@ -30,4 +30,5 @@
 
 ### Apollo GraphQL server
 
+- Depending of the flow we can have a type validation when we are importing product to warehouse otherwise we can filter the products in the front-end
 - Missing constrain in the warehouse_history table for deleting all records which are created for the deleted warehouse
