@@ -29,14 +29,8 @@ export const divide = (req: Request, res: Response) => {
 };
 
 export const sumArray = (req: Request, res: Response) => {
-  console.log("digits: ", req.body.digits);
-
-  const result = req.body.digits.reduce((a: number, b: number) => a + b, 0)
-
-  console.log("result:: ", result);
-
   res.json({
-    result
+    result: req.body.digits.reduce((a: number, b: number) => a + b, 0)
   });
 };
 
