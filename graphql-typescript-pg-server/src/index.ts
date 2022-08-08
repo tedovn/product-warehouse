@@ -1,5 +1,5 @@
 import express, { Application } from "express";
-import { ApolloError, ApolloServer, Config } from "apollo-server-express";
+import { ApolloServer, Config } from "apollo-server-express";
 import schema from "./schema";
 import Knex from "knex";
 import { Model } from "objection";
@@ -31,6 +31,5 @@ server.applyMiddleware({
 });
 
 app.listen(3000, () => {
-  // change later to 4000
   console.log("We are running on http://localhost:3000/graphql");
 });
