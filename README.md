@@ -19,3 +19,15 @@
 - pm2 start startup.config.js
 - pm2 list
 - pm2 log :id
+
+## [TODO]
+
+### Warehouses page
+
+- Add / Edit form + validation for creating warehouse through the front-end application
+- Add forms + validations for importing / exporting products from warehouse
+- Add button for deleting warehouse
+
+### Apollo GraphQL server
+
+- Missing constrain in the warehouse_history table for deleting all records which are created for the deleted warehouse
