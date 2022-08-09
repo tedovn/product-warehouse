@@ -2,15 +2,6 @@ type Calculation {
   result: Float!
 }
 
-type Customer {
-  id: Int
-  customer_number: String!
-  name: String!
-  city: String
-  state: String
-  created_at: String
-}
-
 type Product {
   id: Int
   name: String!
@@ -54,7 +45,6 @@ type Warehouse {
 input createWarehouseHistoryInput {
   warehouse_id: Int!
   product_id: Int!
-  customer_id: Int!
   quantity: Int!
 }
 
@@ -70,16 +60,13 @@ type WarehouseHistory {
   product_name: String!
   product_description: String!
   product_quantity: Int!
-  customer_id: Int!
   type: WarehouseHistoryType!
   created_at: String
 }
 
 type Query {
-  customers: [Customer]
   products: [Product]
   warehouses: [Warehouse]
-  customer(id: Int!): Customer
   product(id: Int!): Product
   warehouse(id: Int!): Warehouse
   warehouseHistory(id: Int!): [WarehouseHistory]
@@ -97,5 +84,5 @@ type Mutation {
   updateWarehouse(warehouse: createWarehouseInput!): Warehouse
   deleteWarehouse(id: Int!): String
   import(warehouseHistory: createWarehouseHistoryInput!): Int
-  export(id: Int!, quantity: Int!): Int
+  export(warehouse_id: Int!, product_name: String!, quantity: Int!): Int
 }

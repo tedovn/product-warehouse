@@ -201,7 +201,8 @@ export type MutationImportArgs = {
 
 
 export type MutationExportArgs = {
-  id: Scalars['Int'];
+  warehouse_id: Scalars['Int'];
+  product_name: Scalars['String'];
   quantity: Scalars['Int'];
 };
 
@@ -394,7 +395,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   updateWarehouse?: Resolver<Maybe<ResolversTypes['Warehouse']>, ParentType, ContextType, RequireFields<MutationUpdateWarehouseArgs, 'warehouse'>>;
   deleteWarehouse?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteWarehouseArgs, 'id'>>;
   import?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType, RequireFields<MutationImportArgs, 'warehouseHistory'>>;
-  export?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType, RequireFields<MutationExportArgs, 'id' | 'quantity'>>;
+  export?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType, RequireFields<MutationExportArgs, 'warehouse_id' | 'product_name' | 'quantity'>>;
 };
 
 export type Resolvers<ContextType = any> = {
