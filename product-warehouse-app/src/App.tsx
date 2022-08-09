@@ -6,27 +6,13 @@ import Warehouses from "./pages/Warehouses";
 
 const App = () => {
   return (
-    <Routes>
-      <>
-        <Route
-          path="/"
-          element={
-            <Layout>
-              <Home />
-            </Layout>
-          }
-        />
-        <Route
-          path="/warehouses"
-          element={
-            <Layout>
-              <Warehouses />
-            </Layout>
-          }
-        />
+    <Layout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/warehouses" element={<Warehouses />} />
         <Route path="*" element={<Navigate to="/" replace />} />
-      </>
-    </Routes>
+      </Routes>
+    </Layout>
   );
 };
 

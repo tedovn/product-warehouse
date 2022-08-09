@@ -59,7 +59,7 @@ const Home = () => {
           created_at: new Date(Number(product.created_at)).toLocaleString(),
         }))}
         paginator
-        rows={10}
+        rows={7}
       >
         <Column field="id" header="ID" />
         <Column field="name" header="Name" />
