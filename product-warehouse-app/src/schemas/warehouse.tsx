@@ -14,10 +14,12 @@ export const GET_WAREHOUSE = gql`
       }
     }
     warehouseHistory(id: $id) {
+      id
       product_name
       product_description
       product_quantity
       type
+      created_at
     }
   }
 `;

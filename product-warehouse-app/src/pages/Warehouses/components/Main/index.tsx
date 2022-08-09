@@ -43,6 +43,10 @@ const historyColumns: ColumnProps[] = [
     field: "type",
     header: "Type",
   },
+  {
+    field: "created_at",
+    header: "Created at",
+  },
 ];
 
 const Main = (props: ComponentProps): JSX.Element => {
@@ -57,17 +61,20 @@ const Main = (props: ComponentProps): JSX.Element => {
         value: warehouse.products,
         scrollable: true,
         paginator: true,
-        rows: 10,
+        rows: 6,
       },
       columns: productsColumns,
     },
     {
       header: "History",
       table: {
-        value: warehouseHistory,
+        value: warehouseHistory.map((whistory: any) => ({
+          ...whistory,
+          created_at: new Date(Number(whistory.created_at)).toLocaleString(),
+        })),
         scrollable: true,
         paginator: true,
-        rows: 10,
+        rows: 6,
       },
       columns: historyColumns,
     },

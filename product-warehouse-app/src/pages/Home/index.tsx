@@ -53,11 +53,19 @@ const Home = () => {
         <h2>Products List</h2>
         <Button label="Add Product" onClick={createProductDialog.show} />
       </div>
-      <DataTable value={products} paginator rows={10}>
+      <DataTable
+        value={products.map((product: any) => ({
+          ...product,
+          created_at: new Date(Number(product.created_at)).toLocaleString(),
+        }))}
+        paginator
+        rows={10}
+      >
         <Column field="id" header="ID" />
         <Column field="name" header="Name" />
         <Column field="description" header="Description" />
         <Column field="type" header="Type" />
+        <Column field="created_at" header="Created" />
         <Column
           field=""
           header=""
