@@ -10,7 +10,6 @@ class WarehouseHistory extends Model {
   product_name!: string;
   product_description!: string;
   product_quantity!: number;
-  customer_id!: number;
   type!: WarehouseHistoryType;
   sum?: number;
   created_at?: string;
@@ -18,7 +17,7 @@ class WarehouseHistory extends Model {
 
   static jsonSchema = {
     type: 'object',
-    required: ['warehouse_id', 'product_id', 'product_name', 'product_description', 'product_quantity', 'customer_id', 'type'],
+    required: ['warehouse_id', 'product_id', 'product_name', 'product_description', 'product_quantity', 'type'],
 
     properties: {
       id: { type: 'integer' },
@@ -27,7 +26,6 @@ class WarehouseHistory extends Model {
       product_name: { type: 'string', min: 1, max: 255 },
       product_description: { type: 'string', min: 1, max: 255 },
       product_quantity: { type: 'integer' },
-      customer_id: { type: 'integer' },
       type: { type: 'string' },
       sum: { type: 'integer' },
       created_at: { type: 'string', min: 1, max: 255 },

@@ -61,7 +61,6 @@ const resolvers: Resolvers = {
         product_name,
         product_quantity: quantity *= -1,
         product_description,
-        customer_id: 1,
         type: WarehouseHistoryType.Export
       });
 
