@@ -1,4 +1,6 @@
-exports.seed = function (knex) {
+import * as Knex from "knex";
+
+export const seed = async (knex: Knex) => {
   // Deletes ALL existing entries
   return knex("customers")
     .del()

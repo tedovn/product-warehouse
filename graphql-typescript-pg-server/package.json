@@ -10,6 +10,7 @@
     "start": "node /dist/bundle.js",
     "migrate:up": "knex --knexfile ./src/database/knexfile.ts migrate:latest ",
     "migrate:down": "knex --knexfile ./src/database/knexfile.ts migrate:down",
+    "migrate:rollback": "knex --knexfile ./src/database/knexfile.ts migrate:rollback",
     "seed:run": "knex --knexfile ./src/database/knexfile.ts seed:run",
     "test:migrate:up": "knex --knexfile ./src/database/knexfile.ts migrate:latest --env testing",
     "test:migrate:down": "knex --knexfile ./src/database/knexfile.ts migrate:down --env testing",
