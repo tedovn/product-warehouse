@@ -1,4 +1,5 @@
-import { Product, WarehouseHistory } from "../../database/models";
+import { ApolloError } from "apollo-server-express";
+import { Product, Warehouse, WarehouseHistory } from "../../database/models";
 import { Resolvers, WarehouseHistoryType } from "../../__generated__/generated-types";
 
 const resolvers: Resolvers = {
@@ -13,6 +14,10 @@ const resolvers: Resolvers = {
 
       // get product data
       const product: Product = await Product.query().findById(product_id);
+      // get warehouse data
+      const warehouse: Warehouse = await Warehouse.query().findById(warehouse_id);
+
+      if (product.type !== warehouse.type) throw new ApolloError('Types of product and warehouse don`t match', 'BAD_USER_INPUT', {});
 
       // create import in warehouse
       const record = await WarehouseHistory.query().insert({

@@ -25,30 +25,25 @@ export type Customer = {
   created_at?: Maybe<Scalars['String']>;
 };
 
-export enum ProductType {
-  Hazardous = 'hazardous',
-  Nonhazardous = 'nonhazardous'
-}
-
 export type Product = {
   __typename?: 'Product';
   id?: Maybe<Scalars['Int']>;
   name: Scalars['String'];
   description?: Maybe<Scalars['String']>;
-  type: ProductType;
+  type: Type;
   created_at?: Maybe<Scalars['String']>;
 };
 
 export type CreateProductInput = {
   name: Scalars['String'];
   description?: Maybe<Scalars['String']>;
-  type?: Maybe<ProductType>;
+  type?: Maybe<Type>;
 };
 
 export type CreateWarehouseInput = {
   name: Scalars['String'];
   capacity: Scalars['Int'];
-  type: WarehouseType;
+  type: Type;
 };
 
 export type SumProductWarehouseHistory = {
@@ -57,7 +52,7 @@ export type SumProductWarehouseHistory = {
   sum?: Maybe<Scalars['Int']>;
 };
 
-export enum WarehouseType {
+export enum Type {
   Hazardous = 'hazardous',
   Nonhazardous = 'nonhazardous'
 }
@@ -68,7 +63,7 @@ export type Warehouse = {
   name: Scalars['String'];
   capacity: Scalars['Int'];
   availableCapacity?: Maybe<Scalars['Int']>;
-  type: WarehouseType;
+  type: Type;
   products?: Maybe<Array<Maybe<SumProductWarehouseHistory>>>;
   created_at?: Maybe<Scalars['String']>;
 };
@@ -288,12 +283,11 @@ export type ResolversTypes = {
   Customer: ResolverTypeWrapper<Customer>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   String: ResolverTypeWrapper<Scalars['String']>;
-  ProductType: ProductType;
   Product: ResolverTypeWrapper<Product>;
   createProductInput: CreateProductInput;
   createWarehouseInput: CreateWarehouseInput;
   SumProductWarehouseHistory: ResolverTypeWrapper<SumProductWarehouseHistory>;
-  WarehouseType: WarehouseType;
+  Type: Type;
   Warehouse: ResolverTypeWrapper<Warehouse>;
   createWarehouseHistoryInput: CreateWarehouseHistoryInput;
   WarehouseHistoryType: WarehouseHistoryType;
@@ -310,12 +304,11 @@ export type ResolversParentTypes = {
   Customer: Customer;
   Int: Scalars['Int'];
   String: Scalars['String'];
-  ProductType: ProductType;
   Product: Product;
   createProductInput: CreateProductInput;
   createWarehouseInput: CreateWarehouseInput;
   SumProductWarehouseHistory: SumProductWarehouseHistory;
-  WarehouseType: WarehouseType;
+  Type: Type;
   Warehouse: Warehouse;
   createWarehouseHistoryInput: CreateWarehouseHistoryInput;
   WarehouseHistoryType: WarehouseHistoryType;
@@ -344,7 +337,7 @@ export type ProductResolvers<ContextType = any, ParentType extends ResolversPare
   id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<ResolversTypes['ProductType'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['Type'], ParentType, ContextType>;
   created_at?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 };
@@ -360,7 +353,7 @@ export type WarehouseResolvers<ContextType = any, ParentType extends ResolversPa
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   capacity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   availableCapacity?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  type?: Resolver<ResolversTypes['WarehouseType'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['Type'], ParentType, ContextType>;
   products?: Resolver<Maybe<Array<Maybe<ResolversTypes['SumProductWarehouseHistory']>>>, ParentType, ContextType>;
   created_at?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;

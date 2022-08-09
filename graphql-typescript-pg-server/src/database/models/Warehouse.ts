@@ -1,5 +1,5 @@
 import { Model } from 'objection';
-import { WarehouseType } from '../../__generated__/generated-types';
+import { Type } from '../../__generated__/generated-types';
 
 class Warehouse extends Model {
   static tableName = "warehouses";
@@ -7,7 +7,7 @@ class Warehouse extends Model {
   id!: number;
   name!: string;
   capacity!: number;
-  type!: WarehouseType;
+  type!: Type;
   created_at?: string;
   updated_at?: string;
 

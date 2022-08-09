@@ -1,5 +1,5 @@
 import { Model } from 'objection';
-import { ProductType } from '../../__generated__/generated-types';
+import { Type } from '../../__generated__/generated-types';
 
 class Product extends Model {
   static tableName = "products";
@@ -7,7 +7,7 @@ class Product extends Model {
   id!: number;
   name!: string;
   description?: string;
-  type!: ProductType;
+  type!: Type;
   created_at?: string;
   updated_at?: string;
 

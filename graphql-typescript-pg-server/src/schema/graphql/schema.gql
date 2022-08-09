@@ -11,29 +11,24 @@ type Customer {
   created_at: String
 }
 
-enum ProductType {
-  hazardous
-  nonhazardous
-}
-
 type Product {
   id: Int
   name: String!
   description: String
-  type: ProductType!
+  type: Type!
   created_at: String
 }
 
 input createProductInput {
   name: String!
   description: String
-  type: ProductType
+  type: Type
 }
 
 input createWarehouseInput {
   name: String!
   capacity: Int!
-  type: WarehouseType!
+  type: Type!
 }
 
 type SumProductWarehouseHistory {
@@ -41,7 +36,7 @@ type SumProductWarehouseHistory {
   sum: Int
 }
 
-enum WarehouseType {
+enum Type {
   hazardous
   nonhazardous
 }
@@ -51,7 +46,7 @@ type Warehouse {
   name: String!
   capacity: Int!
   availableCapacity: Int
-  type: WarehouseType!
+  type: Type!
   products: [SumProductWarehouseHistory]
   created_at: String
 }
