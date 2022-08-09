@@ -8,7 +8,7 @@ export interface Warehouse {
   name: string;
   capacity: number;
   availableCapacity: number;
-  type: WarehouseType;
+  type: Type;
   products: [SumProductWarehouseHistory];
   created_at: string;
 }
@@ -17,7 +17,7 @@ export interface Warehouses {
   warehouses: Warehouse[];
 }
 
-export enum WarehouseType {
+export enum Type {
   Hazardous = "hazardous",
   Nonhazardous = "nonhazardous",
 }

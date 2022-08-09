@@ -19,11 +19,7 @@ export const DELETE_PRODUCT = gql`
 `;
 
 export const CREATE_PRODUCT = gql`
-  mutation CreateProduct(
-    $name: String!
-    $description: String
-    $type: ProductType!
-  ) {
+  mutation CreateProduct($name: String!, $description: String, $type: Type!) {
     createProduct(
       product: { name: $name, description: $description, type: $type }
     ) {

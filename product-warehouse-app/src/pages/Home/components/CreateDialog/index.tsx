@@ -12,7 +12,7 @@ import useProducts from "../../../../hooks/useProducts";
 import useToast from "../../../../hooks/useToast";
 
 // models
-import { ProductType } from "../../../../models/Product";
+import { Type } from "../../../../models/Product";
 
 import "./style.scss";
 
@@ -42,7 +42,7 @@ const CreateEditDialog: React.FC<ComponentProps> = (
         variables: {
           name,
           description,
-          type: hazardous ? ProductType.Hazardous : ProductType.Nonhazardous,
+          type: hazardous ? Type.Hazardous : Type.Nonhazardous,
         },
         onCompleted: () => {
           formik.resetForm();
