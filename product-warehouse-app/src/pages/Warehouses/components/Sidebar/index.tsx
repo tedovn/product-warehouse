@@ -20,7 +20,6 @@ interface ComponentProps {
   setDialogMode: Dispatch<SetStateAction<string>>;
   deleteDialog: any;
   createEditDialog: any;
-  formik: any;
 }
 
 const GroupsSidebar = (props: ComponentProps): JSX.Element => {
@@ -30,7 +29,6 @@ const GroupsSidebar = (props: ComponentProps): JSX.Element => {
     deleteDialog,
     createEditDialog,
     setDialogMode,
-    formik,
   } = props;
   const [globalFilter, setGlobalFilter] = useState<string>("");
 
@@ -64,25 +62,15 @@ const GroupsSidebar = (props: ComponentProps): JSX.Element => {
       key={id}
       onClick={() => setRecordClicked(id)}
     >
-      <div>
-        <span>{name}</span>
-        <div className="buttons">
-          <span
-            role="button"
-            tabIndex={0}
-            onClick={() => {
-              setDialogMode("edit");
-              createEditDialog.show();
-            }}
-          ></span>
-          <span
-            role="button"
-            tabIndex={0}
-            onClick={() => {
-              deleteDialog.show();
-            }}
-          ></span>
-        </div>
+      <span className="title">{name}</span>
+      <div className="buttons">
+        <Button
+          label="delete"
+          className="p-button-danger"
+          onClick={() => {
+            deleteDialog.show();
+          }}
+        />
       </div>
     </div>
   );
@@ -96,7 +84,6 @@ const GroupsSidebar = (props: ComponentProps): JSX.Element => {
             onClick={() => {
               setDialogMode("create");
               createEditDialog.show();
-              formik.resetForm();
             }}
           />
         </div>

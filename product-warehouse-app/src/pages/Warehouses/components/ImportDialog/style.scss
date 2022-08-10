@@ -1,0 +1,72 @@
+.create-dialog {
+  border: none;
+
+  .p-dialog-content {
+    padding: 2.4rem 3.2rem;
+    border-radius: 6px;
+    border: none;
+
+    .reassign-dialog-buttons {
+      text-align: center;
+      padding-top: 1.5rem;
+
+      .p-button {
+        width: 18.8rem;
+        justify-content: center;
+        height: 4rem;
+      }
+
+      .save-button {
+        border: none;
+        color: white;
+        font-weight: 600;
+        font-size: 1.4rem;
+        width: 100%;
+      }
+    }
+  }
+
+  .dialog-header {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #fff;
+    padding-bottom: 1.5rem;
+    line-height: 2rem;
+    display: flex;
+    justify-content: space-between;
+
+    i {
+      color: #fff;
+      cursor: pointer;
+    }
+  }
+
+  .dialog-content {
+    padding-right: 1rem;
+    line-height: 2.2rem;
+    font-size: 1.4rem;
+    color: #fff;
+    opacity: 0.8;
+
+    label {
+      font-weight: 550;
+      font-size: 14px;
+      line-height: 16px;
+      display: flex;
+      align-items: center;
+      letter-spacing: 0.01em;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .product-checkbox {
+      display: flex;
+      align-items: center;
+
+      .Checkbox {
+        display: flex;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}

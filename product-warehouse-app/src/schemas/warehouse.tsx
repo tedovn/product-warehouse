@@ -36,8 +36,10 @@ export const GET_WAREHOUSE_HISTORY = gql`
 `;
 
 export const CREATE_WAREHOUSE = gql`
-  mutation CreateWarehouse($name: String!, $capacity: Int!) {
-    createWarehouse(warehouse: { name: $name, capacity: $capacity }) {
+  mutation CreateWarehouse($name: String!, $capacity: Int!, $type: Type!) {
+    createWarehouse(
+      warehouse: { name: $name, capacity: $capacity, type: $type }
+    ) {
       id
     }
   }

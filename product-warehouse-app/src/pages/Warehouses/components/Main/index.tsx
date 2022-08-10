@@ -8,6 +8,8 @@ import { Column, ColumnProps } from "primereact/column";
 
 interface ComponentProps {
   recordClicked: number;
+  importDialog: any;
+  exportDialog: any;
 }
 
 interface CustomTabPanelProps extends TabPanelProps {
@@ -50,7 +52,7 @@ const historyColumns: ColumnProps[] = [
 ];
 
 const Main = (props: ComponentProps): JSX.Element => {
-  const { recordClicked } = props;
+  const { recordClicked, importDialog, exportDialog } = props;
   const [activeIndex, setActiveIndex] = useState(0);
 
   const { warehouse, warehouseHistory } = useWarehouse(recordClicked);
@@ -63,7 +65,23 @@ const Main = (props: ComponentProps): JSX.Element => {
         paginator: true,
         rows: 6,
       },
-      columns: productsColumns,
+      columns: [
+        ...productsColumns,
+        {
+          field: "",
+          header: "",
+          body: (rowData) => (
+            <Button
+              className="p-button-danger"
+              label="EXPORT"
+              onClick={() => {
+                console.info({ rowData });
+                exportDialog.show();
+              }}
+            />
+          ),
+        },
+      ],
     },
     {
       header: "History",
@@ -90,6 +108,14 @@ const Main = (props: ComponentProps): JSX.Element => {
         </span>
         <br />
         <span>Type: {warehouse.type}</span>
+        <Button
+          label="IMPORT"
+          onClick={() => {
+            console.info("IMPORT");
+            // setSelectedProductId(rowData.id);
+            importDialog.show();
+          }}
+        />
       </div>
       <div className="MainBody">
         <div className="MainBodyTable">
@@ -97,11 +123,11 @@ const Main = (props: ComponentProps): JSX.Element => {
             activeIndex={activeIndex}
             onTabChange={(e: any) => setActiveIndex(e.index)}
           >
-            {tabPanels.map((tab) => (
-              <TabPanel header={tab.header}>
+            {tabPanels.map((tab, index) => (
+              <TabPanel key={index} header={tab.header}>
                 <DataTable {...tab.table}>
                   {tab.columns.map((column) => (
-                    <Column {...column} />
+                    <Column key={index} {...column} />
                   ))}
                 </DataTable>
               </TabPanel>

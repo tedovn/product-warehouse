@@ -17,6 +17,8 @@ type ComponentProps = React.PropsWithChildren<{
   className?: string;
   type?: string;
   style?: object;
+  min?: string | number;
+  max?: string | number;
   onInput?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onFocus?: () => void;
@@ -40,6 +42,8 @@ const InputField: React.FC<ComponentProps> = (
     style,
     id,
     name,
+    min,
+    max,
     onInput,
     onChange,
     onFocus,
@@ -68,6 +72,8 @@ const InputField: React.FC<ComponentProps> = (
           onInput={onInput}
           className={`${className} ${error ? "p-invalid" : ""}`}
           type={type}
+          min={min}
+          max={max}
         />
       </LabelErrorWrapper>
     </div>

@@ -1,8 +1,10 @@
 import * as Yup from "yup";
-import { Warehouse } from "../../../models/Warehouse";
 
 const usePrepareFormState = () => {
-  const defaultFormState: Partial<Warehouse> = {};
+  const defaultFormState = {
+    warehouse_id: null,
+    product: { id: null, name: "", description: "", created_at: "" },
+  };
 
   const validationSchema = Yup.object({
     name: Yup.string().required("Name is required!"),

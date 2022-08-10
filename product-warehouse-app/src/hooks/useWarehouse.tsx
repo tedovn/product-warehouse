@@ -9,7 +9,7 @@ import {
   GET_WAREHOUSE_HISTORY,
 } from "../schemas/warehouse";
 
-const useWarehouses = (id: number) => {
+const useWarehouse = (id: number) => {
   const { showToast } = useToast();
 
   const { data, refetch } = useQuery<{
@@ -44,4 +44,4 @@ const useWarehouses = (id: number) => {
   };
 };
 
-export default useWarehouses;
+export default useWarehouse;
