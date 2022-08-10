@@ -58,10 +58,17 @@ export type Warehouse = {
   created_at?: Maybe<Scalars['String']>;
 };
 
-export type CreateWarehouseHistoryInput = {
-  warehouse_id: Scalars['Int'];
-  product_id: Scalars['Int'];
-  quantity: Scalars['Int'];
+export type WarehouseInput = {
+  id: Scalars['Int'];
+  type: Type;
+  capacity: Scalars['Int'];
+};
+
+export type ProductInput = {
+  id: Scalars['Int'];
+  name: Scalars['String'];
+  description: Scalars['String'];
+  type: Type;
 };
 
 export enum WarehouseHistoryType {
@@ -177,7 +184,9 @@ export type MutationDeleteWarehouseArgs = {
 
 
 export type MutationImportArgs = {
-  warehouseHistory: CreateWarehouseHistoryInput;
+  warehouse: WarehouseInput;
+  product: ProductInput;
+  quantity: Scalars['Int'];
 };
 
 
@@ -270,7 +279,8 @@ export type ResolversTypes = {
   SumProductWarehouseHistory: ResolverTypeWrapper<SumProductWarehouseHistory>;
   Type: Type;
   Warehouse: ResolverTypeWrapper<Warehouse>;
-  createWarehouseHistoryInput: CreateWarehouseHistoryInput;
+  WarehouseInput: WarehouseInput;
+  ProductInput: ProductInput;
   WarehouseHistoryType: WarehouseHistoryType;
   WarehouseHistory: ResolverTypeWrapper<WarehouseHistory>;
   Query: ResolverTypeWrapper<{}>;
@@ -290,7 +300,8 @@ export type ResolversParentTypes = {
   SumProductWarehouseHistory: SumProductWarehouseHistory;
   Type: Type;
   Warehouse: Warehouse;
-  createWarehouseHistoryInput: CreateWarehouseHistoryInput;
+  WarehouseInput: WarehouseInput;
+  ProductInput: ProductInput;
   WarehouseHistoryType: WarehouseHistoryType;
   WarehouseHistory: WarehouseHistory;
   Query: {};
@@ -360,7 +371,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   createWarehouse?: Resolver<Maybe<ResolversTypes['Warehouse']>, ParentType, ContextType, RequireFields<MutationCreateWarehouseArgs, 'warehouse'>>;
   updateWarehouse?: Resolver<Maybe<ResolversTypes['Warehouse']>, ParentType, ContextType, RequireFields<MutationUpdateWarehouseArgs, 'warehouse'>>;
   deleteWarehouse?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationDeleteWarehouseArgs, 'id'>>;
-  import?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType, RequireFields<MutationImportArgs, 'warehouseHistory'>>;
+  import?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType, RequireFields<MutationImportArgs, 'warehouse' | 'product' | 'quantity'>>;
   export?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType, RequireFields<MutationExportArgs, 'warehouse_id' | 'product_name' | 'quantity'>>;
 };
 

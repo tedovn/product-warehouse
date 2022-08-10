@@ -9,13 +9,8 @@ const resolvers: Resolvers = {
     }
   },
   Mutation: {
-    import: async (parent, { warehouseHistory }, { dataSources }) => {
-      const { warehouse_id, product_id, quantity } = warehouseHistory;
-
-      // get product data
-      const product: Product = await Product.query().findById(product_id);
-      // get warehouse data
-      const warehouse: Warehouse = await Warehouse.query().findById(warehouse_id);
+    import: async (parent, { warehouse, product, quantity }, { dataSources }) => {
+      if (quantity < 0) throw new ApolloError('Quantity need to be positive number', 'BAD_USER_INPUT');
 
       if (product.type !== warehouse.type) throw new ApolloError('Types of product and warehouse don`t match', 'BAD_USER_INPUT');
 
@@ -32,7 +27,7 @@ const resolvers: Resolvers = {
 
       // create import in warehouse
       const record = await WarehouseHistory.query().insert({
-        warehouse_id,
+        warehouse_id: warehouse.id,
         product_id: product.id,
         product_description: product.description,
         product_name: product.name,

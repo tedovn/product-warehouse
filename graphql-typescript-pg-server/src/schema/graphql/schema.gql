@@ -42,10 +42,17 @@ type Warehouse {
   created_at: String
 }
 
-input createWarehouseHistoryInput {
-  warehouse_id: Int!
-  product_id: Int!
-  quantity: Int!
+input WarehouseInput {
+  id: Int!
+  type: Type!
+  capacity: Int!
+}
+
+input ProductInput {
+  id: Int!
+  name: String!
+  description: String!
+  type: Type!
 }
 
 enum WarehouseHistoryType {
@@ -83,6 +90,10 @@ type Mutation {
   createWarehouse(warehouse: createWarehouseInput!): Warehouse
   updateWarehouse(warehouse: createWarehouseInput!): Warehouse
   deleteWarehouse(id: Int!): String
-  import(warehouseHistory: createWarehouseHistoryInput!): Int
+  import(
+    warehouse: WarehouseInput!
+    product: ProductInput!
+    quantity: Int!
+  ): Int
   export(warehouse_id: Int!, product_name: String!, quantity: Int!): Int
 }

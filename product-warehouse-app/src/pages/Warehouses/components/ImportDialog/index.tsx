@@ -109,7 +109,7 @@ const ImportDialog: React.FC<ComponentProps> = (
     >
       <div className="reassign-dialog-content">
         <p className="dialog-header">
-          New product
+          Import product
           <i
             role="button"
             tabIndex={0}
@@ -120,10 +120,10 @@ const ImportDialog: React.FC<ComponentProps> = (
         </p>
         <div className="dialog-content">
           <DropdownInputField
-            label="org data set"
+            label="Product"
             placeholder="Select organization data set"
             options={products.map((p) => ({ label: p.name, value: p.id }))}
-            value={formik.values.product}
+            value={formik.values.product.id}
             onChange={handleOrganizationChange}
             error={formik.errors.product}
           />
